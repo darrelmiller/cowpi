@@ -1,6 +1,6 @@
 
-//@cow=http://localhost:58260/api
-@cow=https://cowpi.azurewebsites.net/api
+@cow=http://localhost:58260/api
+//@cow=https://cowpi.azurewebsites.net/api
 ### Get Capacity
 GET {{cow}}/capacity
 
@@ -48,3 +48,7 @@ GET {{cow}}/tasks/1
 ### Delete a Task
 DELETE {{cow}}/tasks/1
 
+
+
+### Get List of Peers
+GET {{cow}}/peers
