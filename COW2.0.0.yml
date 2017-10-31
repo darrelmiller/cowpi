@@ -9,7 +9,7 @@ paths:
         200:
           description: OK
           content: 
-            'application/json;profile=https://acme.com/cow':
+            'application/json;profile=https://acme.com/schemas/cow':
               schema:
                 $ref: '#/components/schemas/cooperatingWorker'
               examples:
@@ -27,17 +27,20 @@ paths:
       requestBody:
         description: Description of the work to be performed
         content: 
-          'application/json;profile=http://acme.com/sow': 
+          'application/json;profile=http://acme.com/schemas/sow': 
             schema:
-              $ref: "#/components/schemas/statementOfWork"
+              $ref: '#/components/schemas/statementOfWork'
             examples:
               default:
-                $ref: "#/components/examples/statementOfWork"
+                $ref: '#/components/examples/statementOfWork'
       responses:
         201: 
-          description: Details of the newly created task
-        202:
-          description: work accepted.
+          description: New task created successfully.
+          headers:
+            Content-Location:
+              schema:
+                type: string
+                format: uri
     get:
       summary: Retreive a list of tasks a service has been asked to perform
       responses:
@@ -46,9 +49,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: string
+                $ref: '#/components/schemas/statementOfWork'
   /tasks/{id}:
     get:
       parameters:
@@ -61,7 +62,7 @@ paths:
         200:
           description: A document describing a statement of work
           content:
-            'application/json;profile=http://acme.com/sow':
+            'application/json;profile=http://acme.com/schemas/sow':
               schema:
                 $ref: '#/components/schemas/statementOfWork'
               examples:
@@ -78,6 +79,11 @@ paths:
       responses:
         201:
           description: Created peer for work co-ordination
+        headers:
+          Content-Location:
+            schema:
+              type: string
+              format: uri
       callbacks:
         createTask:
           '$request.body#/tasksUrl':
@@ -122,7 +128,7 @@ paths:
         200:
           description: A document describing a cooperating worker
           content:
-            'application/json;profile=http://acme.com/cow':
+            'application/json;profile=http://acme.com/schemas/cow':
               schema:
                 $ref: '#/components/schemas/cooperatingWorker'
               examples:
@@ -154,12 +160,12 @@ components:
                 items:
                   type: string
               estimatedWork:
-                $ref: "#/components/schemas/workList"
+                $ref: '#/components/schemas/workList'
               dueDateTime: 
                 type: string
                 format: DateTime
               completedWork:
-                $ref: "#/components/schemas/workList"
+                $ref: '#/components/schemas/workList'
               status:
                 enum:
                 - Active
@@ -177,7 +183,7 @@ components:
     workList:
       type: array
       items:
-        $ref: "#/components/schemas/workItem"
+        $ref: '#/components/schemas/workItem'
     cooperatingWorker:
       type: object
       properties:
