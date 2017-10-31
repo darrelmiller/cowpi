@@ -79,6 +79,11 @@ paths:
       responses:
         201:
           description: Created peer for work co-ordination
+        headers:
+          Content-Location:
+            schema:
+              type: string
+              format: uri
       callbacks:
         createTask:
           '$request.body#/tasksUrl':
