@@ -9,7 +9,7 @@ using cowpi.Services;
 
 namespace Cowpi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("tasks")]
     public class TasksController : Controller
     {
 
@@ -25,7 +25,7 @@ namespace Cowpi.Controllers
         {
             StatementOfWork sow = this.taskService.GetTasks();
 
-            return new JsonResult(sow, StatementOfWork.SerializerSettings);
+            return new JsonResult(new { statementOfWork = sow }, StatementOfWork.SerializerSettings);
         }
 
         [HttpGet("{id}")]
@@ -39,7 +39,7 @@ namespace Cowpi.Controllers
             }
 
             var sow = this.taskService.RenderAsStatementOfWork(task) ;
-            return new JsonResult(sow, StatementOfWork.SerializerSettings);
+            return new JsonResult(new { statementOfWork = sow }, StatementOfWork.SerializerSettings);
         }
 
         [HttpPost]

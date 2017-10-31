@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace cowpi.Controllers
 {
-    [Route("api/capacity")]
+    [Route("capacity")]
     public class CapacityController
     {
         private CapacityService capacityService;
@@ -23,7 +23,7 @@ namespace cowpi.Controllers
         {
             StatementOfWork sow = this.capacityService.GetCapacity();
 
-            return new JsonResult(sow, StatementOfWork.SerializerSettings);
+            return new JsonResult(new { statementOfWork = sow }, StatementOfWork.SerializerSettings);
         }
     }
 }
