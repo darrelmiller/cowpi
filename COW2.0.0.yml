@@ -9,7 +9,7 @@ paths:
         200:
           description: OK
           content: 
-            'application/json;profile=https://acme.com/cow':
+            'application/json;profile=https://acme.com/schemas/cow':
               schema:
                 $ref: '#/components/schemas/cooperatingWorker'
               examples:
@@ -27,7 +27,7 @@ paths:
       requestBody:
         description: Description of the work to be performed
         content: 
-          'application/json;profile=http://acme.com/sow': 
+          'application/json;profile=http://acme.com/schemas/sow': 
             schema:
               $ref: '#/components/schemas/statementOfWork'
             examples:
@@ -62,7 +62,7 @@ paths:
         200:
           description: A document describing a statement of work
           content:
-            'application/json;profile=http://acme.com/sow':
+            'application/json;profile=http://acme.com/schemas/sow':
               schema:
                 $ref: '#/components/schemas/statementOfWork'
               examples:
@@ -123,7 +123,7 @@ paths:
         200:
           description: A document describing a cooperating worker
           content:
-            'application/json;profile=http://acme.com/cow':
+            'application/json;profile=http://acme.com/schemas/cow':
               schema:
                 $ref: '#/components/schemas/cooperatingWorker'
               examples:
