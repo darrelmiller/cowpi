@@ -29,15 +29,18 @@ paths:
         content: 
           'application/json;profile=http://acme.com/sow': 
             schema:
-              $ref: "#/components/schemas/statementOfWork"
+              $ref: '#/components/schemas/statementOfWork'
             examples:
               default:
-                $ref: "#/components/examples/statementOfWork"
+                $ref: '#/components/examples/statementOfWork'
       responses:
         201: 
-          description: Details of the newly created task
-        202:
-          description: work accepted.
+          description: New task created successfully.
+          headers:
+            Content-Location:
+              schema:
+                type: string
+                format: uri
     get:
       summary: Retreive a list of tasks a service has been asked to perform
       responses:
@@ -46,9 +49,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: string
+                $ref: '#/components/schemas/statementOfWork'
   /tasks/{id}:
     get:
       parameters:
@@ -154,12 +155,12 @@ components:
                 items:
                   type: string
               estimatedWork:
-                $ref: "#/components/schemas/workList"
+                $ref: '#/components/schemas/workList'
               dueDateTime: 
                 type: string
                 format: DateTime
               completedWork:
-                $ref: "#/components/schemas/workList"
+                $ref: '#/components/schemas/workList'
               status:
                 enum:
                 - Active
@@ -177,7 +178,7 @@ components:
     workList:
       type: array
       items:
-        $ref: "#/components/schemas/workItem"
+        $ref: '#/components/schemas/workItem'
     cooperatingWorker:
       type: object
       properties:
