@@ -66,26 +66,31 @@ components:
     statementOfWork:
       type: object
       properties:
-        description:
-          type: string
-        requiredSkills:
+        statementOfWork:
           type: array
           items:
-            type: string
-        estimatedWork:
-          $ref: "#/components/schemas/workList"
-        dueDateTime: 
-          type: string
-          format: DateTime
-        completedWork:
-          $ref: "#/components/schemas/workList"
-        status:
-          enum:
-          - Active
-          - Completed
-          - Waiting
-          - Cancelled       
-      required: ["description"]
+            type: object
+            properties:
+              description:
+                type: string
+              requiredSkills:
+                type: array
+                items:
+                  type: string
+              estimatedWork:
+                $ref: "#/components/schemas/workList"
+              dueDateTime: 
+                type: string
+                format: DateTime
+              completedWork:
+                $ref: "#/components/schemas/workList"
+              status:
+                enum:
+                - Active
+                - Completed
+                - Waiting
+                - Cancelled       
+            required: ["description"]
     workItem:
       type: object
       properties:

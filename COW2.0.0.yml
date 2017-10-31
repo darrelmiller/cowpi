@@ -97,9 +97,19 @@ paths:
                 200:
                   description: List of skills and the available capacity
                   content:
-                    'application/json;profile=https://acme.com/schemas/worklist':
+                    'application/json;profile=https://acme.com/schemas/statementOfWork':
                       schema:
-                        $ref: '#/components/schemas/workList'
+                        $ref: '#/components/schemas/statementOfWork'
+    get:
+      responses:
+        200:
+          description: A list of peers registered to share workload
+          content:
+            'application/json;profile=http://acme.com/cooperatingWorkerList':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/cooperatingWorker'
   /peers/{id}:
     get:
       parameters:
@@ -132,26 +142,31 @@ components:
     statementOfWork:
       type: object
       properties:
-        description:
-          type: string
-        requiredSkills:
+        statementOfWork:
           type: array
           items:
-            type: string
-        estimatedWork:
-          $ref: "#/components/schemas/workList"
-        dueDateTime: 
-          type: string
-          format: DateTime
-        completedWork:
-          $ref: "#/components/schemas/workList"
-        status:
-          enum:
-          - Active
-          - Completed
-          - Waiting
-          - Cancelled       
-      required: ["description"]
+            type: object
+            properties:
+              description:
+                type: string
+              requiredSkills:
+                type: array
+                items:
+                  type: string
+              estimatedWork:
+                $ref: "#/components/schemas/workList"
+              dueDateTime: 
+                type: string
+                format: DateTime
+              completedWork:
+                $ref: "#/components/schemas/workList"
+              status:
+                enum:
+                - Active
+                - Completed
+                - Waiting
+                - Cancelled       
+            required: ["description"]
     workItem:
       type: object
       properties:
