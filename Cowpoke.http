@@ -1,5 +1,9 @@
 
-@cow=http://localhost:58260/api
+//@cow=http://localhost:58260/api
+@cow=https://cowpi.azurewebsites.net/api
+### Get Capacity
+GET {{cow}}/capacity
+
 
 ### Get List of Tasks
 GET {{cow}}/tasks
@@ -39,7 +43,7 @@ Content-Type: application/json
 }
 
 ### Get Details of a Task
-GET {{cow}}/tasks/2
+GET {{cow}}/tasks/1
 
 ### Delete a Task
 DELETE {{cow}}/tasks/1
