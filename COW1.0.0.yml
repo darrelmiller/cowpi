@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: Co-Operative Work Programmming Interface
+  version: 1.0.0
+paths:
+  /tasks:
+    post:
+      summary: Assign work to be performed
+      requestBody:
+        description: Description of the work to be performed
+        content: 
+          'application/json;profile=http://acme.com/sow': 
+            schema:
+              $ref: "#/components/schemas/statementOfWork"
+            examples:
+              default:
+                $ref: "#/components/examples/statementOfWork"
+      responses:
+        201: 
+          description: Details of the newly created task
+    get:
+      summary: Retreive a list of tasks a service has been asked to perform
+      responses:
+        200:
+          description: A list of tasks a service has been asked to peform
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /tasks/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: 
+            type: string
+      responses:
+        200:
+          description: A document describing a statement of work
+          headers:
+            Content-Location:
+              schema:
+                type: string
+                format: uri
+          content:
+            'application/json;profile=http://acme.com/sow':
+              schema:
+                $ref: '#/components/schemas/statementOfWork'
+              examples:
+                default:
+                  $ref: '#/components/schemas/statementOfWork'
+  /capacity:
+      get:
+        responses:
+          200:
+            description: List of skills and the available capacity
+            content:
+              'application/json;profile=https://acme.com/schemas/worklist':
+                schema:
+                  $ref: '#/components/schemas/workList'
+components:
+  schemas:
+    statementOfWork:
+      type: object
+      properties:
+        description:
+          type: string
+        requiredSkills:
+          type: array
+          items:
+            type: string
+        estimatedWork:
+          $ref: "#/components/schemas/workList"
+        dueDateTime: 
+          type: string
+          format: DateTime
+        completedWork:
+          $ref: "#/components/schemas/workList"
+        status:
+          enum:
+          - Active
+          - Completed
+          - Waiting
+          - Cancelled       
+      required: ["description"]
+    workItem:
+      type: object
+      properties:
+        skill:
+          type: string
+        minutes:
+          type: number
+    workList:
+      type: array
+      items:
+        $ref: "#/components/schemas/workItem"
+  examples:
+    statementOfWork:
+      summary: A description of work that needs to be performed
+      value:
+        description: Do this stuff for me  # Required
+        requiredSkills: ["dance","sing","limbo"] # Optional
+        estimatedWork: # Optional
+          - skill: dance
+            minutes: 3
+          - skill: sing
+            minutes: 7
+          - skill: limbo
+            minutes: 1
+        dueDateTime : "2017-10-22 10:45am" # Optional
+        completedWork: 
+          - skill: dance
+            minutes: 2
+        status : Active 

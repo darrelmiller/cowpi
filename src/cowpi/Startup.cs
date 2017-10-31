@@ -8,8 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using cowpi.Services;
 
-namespace cowpi
+namespace Cowpi
 {
     public class Startup
     {
@@ -24,6 +25,9 @@ namespace cowpi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<CapacityService>();
+            services.AddTransient<TaskService>();
+            services.AddSingleton<Worker>(new Worker());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
